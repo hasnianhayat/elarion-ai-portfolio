@@ -31,11 +31,13 @@ const sendAutoReply = async (lead) => {
     return;
   }
 
+  const userName = lead.firstName || (lead.name ? lead.name.split(' ')[0] : 'there');
+
   const templates = {
     general_contact: {
       subject: 'Thank you for contacting Elarion',
       html: `
-        <h2>Hi ${lead.name}!</h2>
+        <h2>Hi ${userName}!</h2>
         <p>Thank you for reaching out to Elarion. We've received your message and will get back to you within 24 hours.</p>
         <p>Best regards,<br>The Elarion Team</p>
         <hr>
@@ -45,9 +47,20 @@ const sendAutoReply = async (lead) => {
     ai_consultation: {
       subject: 'AI Consultation Request Received',
       html: `
-        <h2>Hi ${lead.firstName}!</h2>
+        <h2>Hi ${userName}!</h2>
         <p>Thank you for your interest in our AI Agents. Our team will contact you soon to schedule your consultation.</p>
         <p>Best regards,<br>The Elarion AI Team</p>
+        <hr>
+        <p style="color: #666; font-size: 12px;">Sent from sales@elarionltd.com</p>
+      `
+    },
+    demo_request: {
+      subject: 'Agent Demo Request Received',
+      html: `
+        <h2>Hi ${userName}!</h2>
+        <p>We've received your request for an AI Agent demo. Our engineers are preparing a demonstration based on your use cases.</p>
+        <p>We will reach out shortly to confirm the time.</p>
+        <p>Best regards,<br>The Elarion Team</p>
         <hr>
         <p style="color: #666; font-size: 12px;">Sent from sales@elarionltd.com</p>
       `

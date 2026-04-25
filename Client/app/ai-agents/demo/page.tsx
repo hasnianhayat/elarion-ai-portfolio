@@ -70,7 +70,7 @@ export default function DemoPage() {
       const payload = {
         ...formData,
         name: `${formData.firstName} ${formData.lastName}`.trim(),
-        formType: "ai_consultation", // Matches backend enum
+        formType: "demo_request", // Matches backend enum
       };
 
       const res = await fetch(API_URL, {
