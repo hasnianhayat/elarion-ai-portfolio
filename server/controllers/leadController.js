@@ -5,6 +5,7 @@ const { sendAutoReply, sendAdminNotification } = require('../utils/emailService'
 // @route   POST /api/contact
 // @access  Public
 const submitForm = async (req, res) => {
+  console.log("📥 Received form submission:", JSON.stringify(req.body, null, 2));
   try {
     const { formType, ...formData } = req.body;
 
@@ -23,9 +24,11 @@ const submitForm = async (req, res) => {
       service: formData.service,
       message: formData.message,
       workflowDescription: formData.workflowDescription || formData.useCase,
-      ipAddress: req.ip,
+      ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown',
       userAgent: req.get('User-Agent')
     };
+
+    console.log('Processed lead data:', JSON.stringify(leadData, null, 2));
 
     // Check for existing lead
     let lead = await Lead.findOne({ 
