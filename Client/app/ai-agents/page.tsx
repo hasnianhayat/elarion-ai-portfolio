@@ -35,15 +35,10 @@ import {
 
 export default function AIAgentsPage() {
   // Runtime API URL detection
-  const getApiBaseUrl = () => {
-    if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
-    if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-      return "http://localhost:5000";
-    }
-    return "https://elarion-ai-website-architecture-75d.vercel.app";
-  };
-  
-  const API_URL = `${getApiBaseUrl()}/api/contact`;
+  // Simplified API URL detection
+  const API_URL = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+    ? "http://localhost:5000/api/contact"
+    : "https://elarion-ai-website-architecture-75d.vercel.app/api/contact";
 
   // State for consultation form
   const [consultationData, setConsultationData] = useState({
