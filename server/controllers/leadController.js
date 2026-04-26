@@ -49,10 +49,15 @@ const submitForm = async (req, res) => {
       await lead.save();
     }
 
-    // Send emails in background (don't await)
-    sendAutoReply(lead).catch(err => console.log('Email error:', err.message));
-    if (formType !== 'newsletter') {
-      sendAdminNotification(lead).catch(err => console.log('Email error:', err.message));
+    // Send emails (Await them to ensure delivery on serverless platforms like Vercel)
+    try {
+      await sendAutoReply(lead);
+      if (formType !== 'newsletter') {
+        await sendAdminNotification(lead);
+      }
+    } catch (emailErr) {
+      console.log('📧 Non-blocking email error:', emailErr.message);
+      // We don't throw here to ensure the user still gets a success response for their form submission
     }
 
     // Success message based on form type
