@@ -34,12 +34,16 @@ import {
 } from "lucide-react";
 
 export default function AIAgentsPage() {
-  // Robust API URL detection with fail-safe for production
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-    (process.env.NODE_ENV === "development" 
-      ? "http://localhost:5000" 
-      : "https://elarion-ai-website-architecture-75d.vercel.app");
-  const API_URL = `${API_BASE_URL}/api/contact`;
+  // Runtime API URL detection
+  const getApiBaseUrl = () => {
+    if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+    if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+      return "http://localhost:5000";
+    }
+    return "https://elarion-ai-website-architecture-75d.vercel.app";
+  };
+  
+  const API_URL = `${getApiBaseUrl()}/api/contact`;
 
   // State for consultation form
   const [consultationData, setConsultationData] = useState({
