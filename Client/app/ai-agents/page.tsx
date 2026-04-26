@@ -75,7 +75,7 @@ export default function AIAgentsPage() {
         workflowDescription: consultationData.useCase, // This maps useCase to workflowDescription
       };
 
-      console.log('🚀 Elarion API System: v2.0.0');
+      console.log('🚀 Elarion API System: v2.0.1');
       console.log('📡 Target API:', API_URL);
       console.log('📦 Data:', payload);
 
