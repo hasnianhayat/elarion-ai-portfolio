@@ -81,7 +81,7 @@ export default function ContactPage() {
         formType: "general_contact", // Matches backend enum
       };
 
-      console.log("🚀 Elarion API System: v2.0.0");
+      console.log("🚀 Elarion API System: v2.0.1");
       console.log("📡 Target API:", API_URL);
       console.log("📦 Data:", payload);
 
