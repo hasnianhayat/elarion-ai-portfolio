@@ -75,9 +75,9 @@ export default function AIAgentsPage() {
         workflowDescription: consultationData.useCase, // This maps useCase to workflowDescription
       };
 
-      console.log('🌐 Environment:', process.env.NODE_ENV);
-      console.log('📡 Sending consultation to:', API_URL);
-      console.log('📦 Payload:', payload);
+      console.log('🚀 Elarion API System: v2.0.0');
+      console.log('📡 Target API:', API_URL);
+      console.log('📦 Data:', payload);
 
       const res = await fetch(API_URL, {
         method: "POST",

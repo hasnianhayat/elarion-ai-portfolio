@@ -81,9 +81,9 @@ export default function ContactPage() {
         formType: "general_contact", // Matches backend enum
       };
 
-      console.log("🌐 Environment:", process.env.NODE_ENV);
-      console.log("📡 Sending to:", API_URL);
-      console.log("📦 Payload:", payload);
+      console.log("🚀 Elarion API System: v2.0.0");
+      console.log("📡 Target API:", API_URL);
+      console.log("📦 Data:", payload);
 
       // Add timeout to fetch
       const controller = new AbortController();
