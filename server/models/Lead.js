@@ -42,10 +42,7 @@ const leadSchema = new mongoose.Schema({
   company: String,
   
   // Form Specific Data
-  service: {
-    type: String,
-    enum: ['general', 'automation', 'ai', 'web', 'consultation', null]
-  },
+  service: String,
   workflowDescription: String,
   message: String,
   useCase: String,

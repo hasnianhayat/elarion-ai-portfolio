@@ -38,27 +38,31 @@ const validateForm = (req, res, next) => {
   // Form-specific validation
   if (formType === 'general_contact') {
     if (!name || name.trim().length < 2) {
+      console.log('Validation failed: Name too short');
       return res.status(400).json({
         success: false,
         error: 'Name is required (minimum 2 characters)'
       });
     }
-    if (!message || message.trim().length < 10) {
+    if (!message || message.trim().length < 2) {
+      console.log('Validation failed: Message too short');
       return res.status(400).json({
         success: false,
-        error: 'Message is required (minimum 10 characters)'
+        error: 'Message is required (minimum 2 characters)'
       });
     }
   }
 
   if (formType === 'ai_consultation') {
     if (!firstName || firstName.trim().length < 2) {
+      console.log('Validation failed: First name too short');
       return res.status(400).json({
         success: false,
         error: 'First name is required (minimum 2 characters)'
       });
     }
     if (!lastName || lastName.trim().length < 2) {
+      console.log('Validation failed: Last name too short');
       return res.status(400).json({
         success: false,
         error: 'Last name is required (minimum 2 characters)'
@@ -67,10 +71,11 @@ const validateForm = (req, res, next) => {
     
     // Check both possible field names for the workflow description
     const description = workflowDescription || useCase;
-    if (!description || description.trim().length < 10) {
+    if (!description || description.trim().length < 2) {
+      console.log('Validation failed: Description too short');
       return res.status(400).json({
         success: false,
-        error: 'Please describe your workflow (minimum 10 characters)'
+        error: 'Please describe your workflow (minimum 2 characters)'
       });
     }
   }
