@@ -58,7 +58,11 @@ export default function DemoPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  // Robust API URL detection
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
+    (process.env.NODE_ENV === "production" 
+      ? "https://elarion-ai-website-architecture-75d.vercel.app" 
+      : "http://localhost:5000");
   const API_URL = `${API_BASE_URL}/api/contact`;
 
   const handleSubmit = async (e: React.FormEvent) => {

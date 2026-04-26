@@ -34,10 +34,12 @@ import {
 } from "lucide-react";
 
 export default function AIAgentsPage() {
-  // API URL with ternary operator for localhost vs production
-  const API_URL = process.env.NODE_ENV === "production"
-    ? "https://elarion-ai-website-architecture-75d.vercel.app/api/contact"
-    : "http://localhost:5000/api/contact";
+  // Robust API URL detection
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
+    (process.env.NODE_ENV === "production" 
+      ? "https://elarion-ai-website-architecture-75d.vercel.app" 
+      : "http://localhost:5000");
+  const API_URL = `${API_BASE_URL}/api/contact`;
 
   // State for consultation form
   const [consultationData, setConsultationData] = useState({
