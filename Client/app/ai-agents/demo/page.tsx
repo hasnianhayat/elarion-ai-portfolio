@@ -76,6 +76,10 @@ export default function DemoPage() {
         formType: "demo_request", // Matches backend enum
       };
 
+      console.log('🚀 Elarion API System: v2.0.0');
+      console.log('📡 Target API:', API_URL);
+      console.log('📦 Data:', payload);
+
       const res = await fetch(API_URL, {
         method: "POST",
         headers: {
