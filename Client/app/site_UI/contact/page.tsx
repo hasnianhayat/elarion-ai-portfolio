@@ -28,6 +28,11 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Simplified API URL detection
+  const API_URL = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+    ? "http://localhost:5000/api/contact"
+    : "https://elarion-ai-website-architecture-75d.vercel.app/api/contact";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -41,13 +46,24 @@ export default function ContactPage() {
         formType: "general_contact", // Matches backend enum
       };
 
-      const res = await fetch("http://localhost:5000/api/contact", {
+      console.log("🚀 Elarion API System: v2.0.1");
+      console.log("📡 Target API:", API_URL);
+      console.log("📦 Data:", payload);
+
+      // Add timeout to fetch
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       const data = await res.json();
 
@@ -55,6 +71,7 @@ export default function ContactPage() {
         throw new Error(data.error || "Something went wrong");
       }
 
+      console.log("✅ Success:", data);
       setSubmitted(true);
 
       setTimeout(() => {

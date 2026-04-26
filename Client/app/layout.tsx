@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 
@@ -44,8 +43,6 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen w-full ">
           {children}
         </div>
-        {/* </div> */}
-        <Analytics />
       </body>
     </html>
   )
