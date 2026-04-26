@@ -34,11 +34,11 @@ import {
 } from "lucide-react";
 
 export default function AIAgentsPage() {
-  // Robust API URL detection
+  // Robust API URL detection with fail-safe for production
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-    (process.env.NODE_ENV === "production" 
-      ? "https://elarion-ai-website-architecture-75d.vercel.app" 
-      : "http://localhost:5000");
+    (process.env.NODE_ENV === "development" 
+      ? "http://localhost:5000" 
+      : "https://elarion-ai-website-architecture-75d.vercel.app");
   const API_URL = `${API_BASE_URL}/api/contact`;
 
   // State for consultation form
