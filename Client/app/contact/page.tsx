@@ -31,15 +31,10 @@ export default function ContactPage() {
   const [backendStatus, setBackendStatus] = useState<"checking" | "online" | "offline">("checking");
 
   // Runtime API URL detection (more reliable than build-time environment variables)
-  const getApiBaseUrl = () => {
-    if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
-    if (typeof window !== "undefined" && window.location.hostname === "localhost") {
-      return "http://localhost:5000";
-    }
-    return "https://elarion-ai-website-architecture-75d.vercel.app";
-  };
-  
-  const API_URL = `${getApiBaseUrl()}/api/contact`;
+  // Simplified API URL detection
+  const API_URL = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+    ? "http://localhost:5000/api/contact"
+    : "https://elarion-ai-website-architecture-75d.vercel.app/api/contact";
 
   // Check if backend is reachable
   useEffect(() => {
@@ -50,7 +45,9 @@ export default function ContactPage() {
       }
 
       try {
-        const healthUrl = `${API_BASE_URL}/health`;
+        const healthUrl = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+          ? "http://localhost:5000/health"
+          : "https://elarion-ai-website-architecture-75d.vercel.app/health";
         const response = await fetch(healthUrl, { 
           method: 'GET',
           cache: 'no-cache'
