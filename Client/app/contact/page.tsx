@@ -30,11 +30,11 @@ export default function ContactPage() {
   const [error, setError] = useState("");
   const [backendStatus, setBackendStatus] = useState<"checking" | "online" | "offline">("checking");
 
-  // Robust API URL detection with fallback for production
+  // Robust API URL detection with fail-safe for production
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 
-    (process.env.NODE_ENV === "production" 
-      ? "https://elarion-ai-website-architecture-75d.vercel.app" 
-      : "http://localhost:5000");
+    (process.env.NODE_ENV === "development" 
+      ? "http://localhost:5000" 
+      : "https://elarion-ai-website-architecture-75d.vercel.app");
   const API_URL = `${API_BASE_URL}/api/contact`; 
 
   // Check if backend is reachable
